@@ -1,8 +1,13 @@
 package com.example.demo.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.User;
@@ -34,6 +39,38 @@ public class UserController {
         this.emailService = emailService;
     }
 
+    // 아이디 중복 확인
+    @GetMapping("/check-username")
+    public Map<String, Object> checkUsername(
+            @RequestParam("username") String username) {
+
+        boolean available =
+                userService.isUsernameAvailable(username);
+
+        Map<String, Object> response =
+                new HashMap<>();
+
+        response.put("available", available);
+
+        if (available) {
+
+            response.put(
+                    "message",
+                    "사용 가능한 아이디입니다."
+            );
+
+        } else {
+
+            response.put(
+                    "message",
+                    "이미 사용 중인 아이디입니다."
+            );
+
+        }
+
+        return response;
+    }
+
     // 회원가입
     @PostMapping("/signup")
     public UserResponseDto signup(
@@ -41,20 +78,31 @@ public class UserController {
 
         // 이메일 인증 여부 확인
         if (!emailService.isVerified(request.getEmail())) {
+
             throw new RuntimeException(
                     "이메일 인증을 먼저 완료해주세요."
             );
+
         }
 
         User user = new User();
 
-        user.setUsername(request.getUsername());
-        user.setPassword(request.getPassword());
-        user.setEmail(
-                request.getEmail().trim().toLowerCase()
+        user.setUsername(
+                request.getUsername()
         );
 
-        User savedUser = userService.signup(user);
+        user.setPassword(
+                request.getPassword()
+        );
+
+        user.setEmail(
+                request.getEmail()
+                        .trim()
+                        .toLowerCase()
+        );
+
+        User savedUser =
+                userService.signup(user);
 
         // 회원가입 성공 후 이메일 인증 상태 삭제
         emailService.clearVerification(
@@ -73,10 +121,11 @@ public class UserController {
     public LoginResponseDto login(
             @Valid @RequestBody LoginRequestDto request) {
 
-        User user = userService.login(
-                request.getUsername(),
-                request.getPassword()
-        );
+        User user =
+                userService.login(
+                        request.getUsername(),
+                        request.getPassword()
+                );
 
         String token =
                 jwtUtil.generateToken(
@@ -90,4 +139,5 @@ public class UserController {
                 user.getEmail()
         );
     }
+
 }

@@ -8,6 +8,7 @@
     <title>SafeHouse</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -102,7 +103,6 @@
                 1px solid rgba(255, 255, 255, 0.2);
 
             border-radius: 999px;
-
             font-size: 13px;
         }
 
@@ -113,27 +113,36 @@
 
         .tabs {
             display: flex;
+
             background: #f1f5f9;
+
             border-radius: 12px;
             padding: 5px;
+
             margin-bottom: 30px;
         }
 
         .tab {
             flex: 1;
+
             border: none;
             background: transparent;
+
             padding: 12px;
             border-radius: 9px;
+
             cursor: pointer;
+
             font-size: 15px;
             font-weight: 700;
+
             color: #64748b;
         }
 
         .tab.active {
             background: white;
             color: #1d4ed8;
+
             box-shadow:
                 0 3px 10px rgba(0, 0, 0, 0.08);
         }
@@ -160,9 +169,12 @@
 
         .label {
             display: block;
+
             margin-top: 14px;
             margin-bottom: 7px;
+
             color: #334155;
+
             font-size: 14px;
             font-weight: 700;
         }
@@ -170,18 +182,38 @@
         input {
             width: 100%;
             height: 48px;
+
             border: 1px solid #cbd5e1;
             border-radius: 11px;
+
             padding: 0 14px;
+
             font-size: 15px;
+
             outline: none;
+
             transition: 0.2s;
         }
 
         input:focus {
             border-color: #2563eb;
+
             box-shadow:
                 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        /* 아이디 + 중복확인 */
+        .username-row {
+            display: grid;
+            grid-template-columns: 1fr 120px;
+            gap: 8px;
+        }
+
+        /* 비밀번호 + 보기 */
+        .password-row {
+            display: grid;
+            grid-template-columns: 1fr 80px;
+            gap: 8px;
         }
 
         .email-row {
@@ -203,9 +235,12 @@
 
         .small-btn {
             height: 48px;
+
             border-radius: 11px;
+
             background: #e0e7ff;
             color: #1d4ed8;
+
             font-weight: 700;
         }
 
@@ -216,22 +251,29 @@
         .main-btn {
             width: 100%;
             height: 50px;
+
             margin-top: 24px;
+
             border-radius: 12px;
+
             background:
                 linear-gradient(
                     135deg,
                     #2563eb,
                     #1d4ed8
                 );
+
             color: white;
+
             font-size: 15px;
             font-weight: 800;
+
             transition: 0.2s;
         }
 
         .main-btn:hover {
             transform: translateY(-1px);
+
             box-shadow:
                 0 8px 18px rgba(37, 99, 235, 0.25);
         }
@@ -239,12 +281,17 @@
         .naver-btn {
             width: 100%;
             height: 50px;
+
             margin-top: 12px;
+
             border-radius: 12px;
+
             background: #03c75a;
             color: white;
+
             font-size: 15px;
             font-weight: 800;
+
             transition: 0.2s;
         }
 
@@ -256,17 +303,23 @@
         .divider {
             display: flex;
             align-items: center;
+
             margin-top: 20px;
             margin-bottom: 8px;
+
             color: #94a3b8;
+
             font-size: 12px;
         }
 
         .divider::before,
         .divider::after {
             content: "";
+
             flex: 1;
+
             height: 1px;
+
             background: #e2e8f0;
         }
 
@@ -276,8 +329,11 @@
 
         .message {
             min-height: 20px;
+
             margin-top: 10px;
+
             font-size: 13px;
+
             color: #475569;
         }
 
@@ -303,8 +359,11 @@
             .form-area {
                 padding: 35px;
             }
+
         }
+
     </style>
+
 </head>
 
 <body>
@@ -333,6 +392,7 @@
 
     </div>
 
+
     <div class="form-area">
 
         <div class="tabs">
@@ -340,18 +400,24 @@
             <button
                 class="tab active"
                 onclick="showSignup()">
+
                 회원가입
+
             </button>
 
             <button
                 class="tab"
                 onclick="showLogin()">
+
                 로그인
+
             </button>
 
         </div>
 
+
         <!-- 회원가입 -->
+
         <div
             id="signupSection"
             class="form-section active">
@@ -362,22 +428,63 @@
                 SafeHouse를 시작해보세요.
             </p>
 
+
+            <!-- 아이디 -->
+
             <label class="label">
                 아이디
             </label>
 
-            <input
-                id="signupUsername"
-                placeholder="4~20자">
+            <div class="username-row">
+
+                <input
+                    id="signupUsername"
+                    placeholder="4~20자"
+                    oninput="resetUsernameCheck()">
+
+                <button
+                    type="button"
+                    class="small-btn"
+                    onclick="checkUsername()">
+
+                    중복확인
+
+                </button>
+
+            </div>
+
+            <div
+                id="usernameMessage"
+                class="message">
+            </div>
+
+
+            <!-- 비밀번호 -->
 
             <label class="label">
                 비밀번호
             </label>
 
-            <input
-                id="signupPassword"
-                type="password"
-                placeholder="6자 이상">
+            <div class="password-row">
+
+                <input
+                    id="signupPassword"
+                    type="password"
+                    placeholder="6자 이상">
+
+                <button
+                    type="button"
+                    class="small-btn"
+                    onclick="toggleSignupPassword()">
+
+                    보기
+
+                </button>
+
+            </div>
+
+
+            <!-- 이메일 -->
 
             <label class="label">
                 이메일
@@ -391,6 +498,7 @@
                     placeholder="example@email.com">
 
                 <button
+                    type="button"
                     class="small-btn"
                     onclick="sendVerificationCode()">
 
@@ -399,6 +507,7 @@
                 </button>
 
             </div>
+
 
             <label class="label">
                 인증번호
@@ -411,6 +520,7 @@
                     placeholder="6자리 인증번호">
 
                 <button
+                    type="button"
                     class="small-btn"
                     onclick="verifyEmail()">
 
@@ -420,10 +530,12 @@
 
             </div>
 
+
             <div
                 id="emailMessage"
                 class="message">
             </div>
+
 
             <button
                 class="main-btn"
@@ -433,6 +545,7 @@
 
             </button>
 
+
             <div
                 id="signupMessage"
                 class="message">
@@ -440,7 +553,9 @@
 
         </div>
 
+
         <!-- 로그인 -->
+
         <div
             id="loginSection"
             class="form-section">
@@ -451,6 +566,7 @@
                 SafeHouse에 다시 오신 것을 환영합니다.
             </p>
 
+
             <label class="label">
                 아이디
             </label>
@@ -459,14 +575,29 @@
                 id="loginUsername"
                 placeholder="아이디">
 
+
             <label class="label">
                 비밀번호
             </label>
 
-            <input
-                id="loginPassword"
-                type="password"
-                placeholder="비밀번호">
+            <div class="password-row">
+
+                <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="비밀번호">
+
+                <button
+                    type="button"
+                    class="small-btn"
+                    onclick="toggleLoginPassword()">
+
+                    보기
+
+                </button>
+
+            </div>
+
 
             <button
                 class="main-btn"
@@ -476,9 +607,11 @@
 
             </button>
 
+
             <div class="divider">
                 <span>또는</span>
             </div>
+
 
             <button
                 class="naver-btn"
@@ -487,6 +620,7 @@
                 네이버로 로그인
 
             </button>
+
 
             <div
                 id="loginMessage"
@@ -499,8 +633,13 @@
 
 </div>
 
+
 <script>
 
+let usernameChecked = false;
+
+
+// 회원가입 화면
 function showSignup() {
 
     document
@@ -521,6 +660,7 @@ function showSignup() {
 }
 
 
+// 로그인 화면
 function showLogin() {
 
     document
@@ -541,6 +681,7 @@ function showLogin() {
 }
 
 
+// 메시지 표시
 function setMessage(
     elementId,
     message,
@@ -560,6 +701,159 @@ function setMessage(
     element.classList.add(
         success ? "success" : "error"
     );
+}
+
+
+// 아이디가 변경되면 중복확인 취소
+function resetUsernameCheck() {
+
+    usernameChecked = false;
+
+    const message =
+        document.getElementById(
+            "usernameMessage"
+        );
+
+    message.innerText = "";
+}
+
+
+// 아이디 중복 확인
+async function checkUsername() {
+
+    const username =
+        document
+            .getElementById(
+                "signupUsername"
+            )
+            .value
+            .trim();
+
+    if (username.length < 4) {
+
+        usernameChecked = false;
+
+        setMessage(
+            "usernameMessage",
+            "아이디는 4자 이상 입력해주세요.",
+            false
+        );
+
+        return;
+    }
+
+    if (username.length > 20) {
+
+        usernameChecked = false;
+
+        setMessage(
+            "usernameMessage",
+            "아이디는 20자 이하로 입력해주세요.",
+            false
+        );
+
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/users/check-username?username="
+                + encodeURIComponent(username)
+            );
+
+        const data =
+            await response.json();
+
+        if (response.ok && data.available) {
+
+            usernameChecked = true;
+
+            setMessage(
+                "usernameMessage",
+                data.message ||
+                    "사용 가능한 아이디입니다.",
+                true
+            );
+
+        } else {
+
+            usernameChecked = false;
+
+            setMessage(
+                "usernameMessage",
+                data.message ||
+                    "이미 사용 중인 아이디입니다.",
+                false
+            );
+
+        }
+
+    } catch (error) {
+
+        usernameChecked = false;
+
+        setMessage(
+            "usernameMessage",
+            "아이디 중복확인 중 오류가 발생했습니다.",
+            false
+        );
+
+    }
+
+}
+
+
+// 회원가입 비밀번호 보기 / 숨기기
+function toggleSignupPassword() {
+
+    const passwordInput =
+        document.getElementById(
+            "signupPassword"
+        );
+
+    const button =
+        event.currentTarget;
+
+    if (passwordInput.type === "password") {
+
+        passwordInput.type = "text";
+        button.innerText = "숨기기";
+
+    } else {
+
+        passwordInput.type = "password";
+        button.innerText = "보기";
+
+    }
+
+}
+
+
+// 로그인 비밀번호 보기 / 숨기기
+function toggleLoginPassword() {
+
+    const passwordInput =
+        document.getElementById(
+            "loginPassword"
+        );
+
+    const button =
+        event.currentTarget;
+
+    if (passwordInput.type === "password") {
+
+        passwordInput.type = "text";
+        button.innerText = "숨기기";
+
+    } else {
+
+        passwordInput.type = "password";
+        button.innerText = "보기";
+
+    }
+
 }
 
 
@@ -590,12 +884,12 @@ window.addEventListener(
                 true
             );
 
-            // 새로고침할 때마다 성공 메시지가
-            // 다시 뜨지 않도록 삭제
             localStorage.removeItem(
                 "naverLoginSuccess"
             );
+
         }
+
     }
 );
 
@@ -605,7 +899,9 @@ async function sendVerificationCode() {
 
     const email =
         document
-            .getElementById("signupEmail")
+            .getElementById(
+                "signupEmail"
+            )
             .value;
 
     try {
@@ -643,7 +939,9 @@ async function sendVerificationCode() {
             "인증번호 전송 중 오류가 발생했습니다.",
             false
         );
+
     }
+
 }
 
 
@@ -652,12 +950,16 @@ async function verifyEmail() {
 
     const email =
         document
-            .getElementById("signupEmail")
+            .getElementById(
+                "signupEmail"
+            )
             .value;
 
     const code =
         document
-            .getElementById("verificationCode")
+            .getElementById(
+                "verificationCode"
+            )
             .value;
 
     try {
@@ -699,27 +1001,50 @@ async function verifyEmail() {
             "이메일 인증 중 오류가 발생했습니다.",
             false
         );
+
     }
+
 }
 
 
 // 회원가입
 async function signup() {
 
+    // 아이디 중복확인을 하지 않았다면 회원가입 차단
+    if (!usernameChecked) {
+
+        setMessage(
+            "signupMessage",
+            "아이디 중복확인을 먼저 해주세요.",
+            false
+        );
+
+        return;
+    }
+
+
     const username =
         document
-            .getElementById("signupUsername")
-            .value;
+            .getElementById(
+                "signupUsername"
+            )
+            .value
+            .trim();
 
     const password =
         document
-            .getElementById("signupPassword")
+            .getElementById(
+                "signupPassword"
+            )
             .value;
 
     const email =
         document
-            .getElementById("signupEmail")
+            .getElementById(
+                "signupEmail"
+            )
             .value;
+
 
     try {
 
@@ -753,6 +1078,13 @@ async function signup() {
                 true
             );
 
+            /*
+             * 회원가입이 성공했으므로
+             * 같은 아이디로 다시 가입하는 것을 방지하기 위해
+             * 중복확인 상태를 초기화
+             */
+            usernameChecked = false;
+
         } else {
 
             setMessage(
@@ -760,6 +1092,7 @@ async function signup() {
                 data.message,
                 false
             );
+
         }
 
     } catch (error) {
@@ -769,7 +1102,9 @@ async function signup() {
             "회원가입 중 오류가 발생했습니다.",
             false
         );
+
     }
+
 }
 
 
@@ -778,12 +1113,16 @@ async function login() {
 
     const username =
         document
-            .getElementById("loginUsername")
+            .getElementById(
+                "loginUsername"
+            )
             .value;
 
     const password =
         document
-            .getElementById("loginPassword")
+            .getElementById(
+                "loginPassword"
+            )
             .value;
 
     try {
@@ -836,6 +1175,7 @@ async function login() {
                 data.message,
                 false
             );
+
         }
 
     } catch (error) {
@@ -845,7 +1185,9 @@ async function login() {
             "로그인 중 오류가 발생했습니다.",
             false
         );
+
     }
+
 }
 
 
@@ -854,9 +1196,11 @@ function naverLogin() {
 
     window.location.href =
         "/api/naver/login";
+
 }
 
 </script>
 
 </body>
+
 </html>

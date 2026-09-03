@@ -15,36 +15,66 @@ public class UserService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository) {
+
         this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
+
     }
 
     // 일반 회원가입
     public User signup(User user) {
 
+        // 아이디 중복 확인
         if (userRepository.existsByUsername(user.getUsername())) {
-            throw new RuntimeException("이미 사용 중인 아이디입니다.");
+
+            throw new RuntimeException(
+                    "이미 사용 중인 아이디입니다."
+            );
+
         }
 
+        // 이메일 중복 확인
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("이미 사용 중인 이메일입니다.");
+
+            throw new RuntimeException(
+                    "이미 사용 중인 이메일입니다."
+            );
+
         }
 
+        // 비밀번호 암호화
         String encodedPassword =
-                passwordEncoder.encode(user.getPassword());
+                passwordEncoder.encode(
+                        user.getPassword()
+                );
 
         user.setPassword(encodedPassword);
 
         return userRepository.save(user);
+
+    }
+
+    // 아이디 중복 확인
+    public boolean isUsernameAvailable(String username) {
+
+        return !userRepository.existsByUsername(username);
+
     }
 
     // 일반 로그인
-    public User login(String username, String password) {
+    public User login(
+            String username,
+            String password) {
 
-        User user = userRepository.findByUsername(username);
+        User user =
+                userRepository.findByUsername(username);
 
         if (user == null) {
-            throw new RuntimeException("존재하지 않는 사용자입니다.");
+
+            throw new RuntimeException(
+                    "존재하지 않는 사용자입니다."
+            );
+
         }
 
         if (user.getPassword() == null ||
@@ -55,9 +85,11 @@ public class UserService {
             throw new RuntimeException(
                     "비밀번호가 일치하지 않습니다."
             );
+
         }
 
         return user;
+
     }
 
     // 네이버 로그인
@@ -70,14 +102,18 @@ public class UserService {
                 userRepository.findByNaverId(naverId);
 
         if (existingUser != null) {
+
             return existingUser;
+
         }
 
         // 같은 이메일로 일반 회원가입이 되어 있는지 확인
         if (userRepository.existsByEmail(email)) {
+
             throw new RuntimeException(
                     "이미 일반 회원가입으로 사용 중인 이메일입니다."
             );
+
         }
 
         // 처음 네이버 로그인한 회원 자동 생성
@@ -101,9 +137,13 @@ public class UserService {
                 UUID.randomUUID().toString();
 
         newUser.setPassword(
-                passwordEncoder.encode(randomPassword)
+                passwordEncoder.encode(
+                        randomPassword
+                )
         );
 
         return userRepository.save(newUser);
+
     }
+
 }
