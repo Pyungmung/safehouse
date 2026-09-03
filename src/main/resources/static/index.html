@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SafeHouse</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            padding-top: 60px;
+        }
+
+        .container {
+            width: 350px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 6px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 11px;
+            margin-top: 8px;
+            cursor: pointer;
+        }
+
+        .message {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>SafeHouse</h1>
+
+    <h2>회원가입</h2>
+
+    <input id="signupUsername"
+           placeholder="아이디">
+
+    <input id="signupPassword"
+           type="password"
+           placeholder="비밀번호">
+
+    <input id="signupEmail"
+           type="email"
+           placeholder="이메일">
+
+    <button onclick="sendVerificationCode()">
+        인증번호 받기
+    </button>
+
+    <input id="verificationCode"
+           placeholder="6자리 인증번호">
+
+    <button onclick="verifyEmail()">
+        인증하기
+    </button>
+
+    <div id="emailMessage"
+         class="message"></div>
+
+    <button onclick="signup()">
+        회원가입
+    </button>
+
+    <div id="signupMessage"
+         class="message"></div>
+
+
+    <h2>로그인</h2>
+
+    <input id="loginUsername"
+           placeholder="아이디">
+
+    <input id="loginPassword"
+           type="password"
+           placeholder="비밀번호">
+
+    <button onclick="login()">
+        로그인
+    </button>
+
+    <div id="loginMessage"
+         class="message"></div>
+
+</div>
+
+
+<script>
+
+// 인증번호 전송
+async function sendVerificationCode() {
+
+    const email =
+        document.getElementById("signupEmail").value;
+
+    const response = await fetch("/api/email/send", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            email: email
+        })
+    });
+
+    const data = await response.json();
+
+    document.getElementById("emailMessage").innerText =
+        data.message;
+}
+
+
+// 인증번호 확인
+async function verifyEmail() {
+
+    const email =
+        document.getElementById("signupEmail").value;
+
+    const code =
+        document.getElementById("verificationCode").value;
+
+    const response = await fetch("/api/email/verify", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            email: email,
+            code: code
+        })
+    });
+
+    const data = await response.json();
+
+    document.getElementById("emailMessage").innerText =
+        data.message;
+}
+
+
+// 회원가입
+async function signup() {
+
+    const username =
+        document.getElementById("signupUsername").value;
+
+    const password =
+        document.getElementById("signupPassword").value;
+
+    const email =
+        document.getElementById("signupEmail").value;
+
+    const response = await fetch("/api/users/signup", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            username: username,
+            password: password,
+            email: email
+        })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+
+        document.getElementById("signupMessage").innerText =
+            "회원가입 성공! 아이디: " + data.username;
+
+    } else {
+
+        document.getElementById("signupMessage").innerText =
+            data.message;
+    }
+}
+
+
+// 로그인
+async function login() {
+
+    const username =
+        document.getElementById("loginUsername").value;
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    const response = await fetch("/api/users/login", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            username: username,
+            password: password
+        })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+
+        localStorage.setItem(
+            "token",
+            data.token
+        );
+
+        document.getElementById("loginMessage").innerText =
+            "로그인 성공! " + data.username + "님";
+
+    } else {
+
+        document.getElementById("loginMessage").innerText =
+            data.message;
+    }
+}
+
+</script>
+
+</body>
+</html>
