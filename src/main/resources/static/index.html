@@ -3,50 +3,306 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>SafeHouse</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    rgba(15, 23, 42, 0.68),
+                    rgba(15, 23, 42, 0.78)
+                ),
+                url("https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1600&q=80");
+
+            background-size: cover;
+            background-position: center;
+
             display: flex;
+            align-items: center;
             justify-content: center;
-            padding-top: 60px;
+
+            padding: 30px;
         }
 
         .container {
-            width: 350px;
-            background: white;
-            padding: 30px;
+            width: 100%;
+            max-width: 980px;
+            min-height: 620px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            background: rgba(255, 255, 255, 0.97);
+
+            border-radius: 24px;
+            overflow: hidden;
+
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.30);
+        }
+
+        .intro {
+            padding: 55px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #0f172a,
+                    #1e3a8a
+                );
+
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .intro h2 {
+            font-size: 31px;
+            line-height: 1.35;
+            margin-bottom: 18px;
+        }
+
+        .intro p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .badge {
+            margin-top: 35px;
+
+            display: inline-block;
+            width: fit-content;
+
+            padding: 10px 16px;
+
+            background:
+                rgba(255, 255, 255, 0.12);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.2);
+
+            border-radius: 999px;
+
+            font-size: 13px;
+        }
+
+        .form-area {
+            padding: 45px;
+            overflow-y: auto;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f1f5f9;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 5px;
+            margin-bottom: 30px;
+        }
+
+        .tab {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 12px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 700;
+            color: #64748b;
+        }
+
+        .tab.active {
+            background: white;
+            color: #1d4ed8;
+            box-shadow:
+                0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
         }
 
         h1 {
-            text-align: center;
+            font-size: 27px;
+            color: #0f172a;
+            margin-bottom: 8px;
         }
 
-        h2 {
-            margin-top: 30px;
+        .subtitle {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        .label {
+            display: block;
+            margin-top: 14px;
+            margin-bottom: 7px;
+            color: #334155;
+            font-size: 14px;
+            font-weight: 700;
         }
 
         input {
             width: 100%;
-            padding: 10px;
-            margin: 6px 0;
-            box-sizing: border-box;
+            height: 48px;
+            border: 1px solid #cbd5e1;
+            border-radius: 11px;
+            padding: 0 14px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        .email-row {
+            display: grid;
+            grid-template-columns: 1fr 120px;
+            gap: 8px;
+        }
+
+        .code-row {
+            display: grid;
+            grid-template-columns: 1fr 120px;
+            gap: 8px;
         }
 
         button {
-            width: 100%;
-            padding: 11px;
-            margin-top: 8px;
+            border: none;
             cursor: pointer;
         }
 
+        .small-btn {
+            height: 48px;
+            border-radius: 11px;
+            background: #e0e7ff;
+            color: #1d4ed8;
+            font-weight: 700;
+        }
+
+        .small-btn:hover {
+            background: #c7d2fe;
+        }
+
+        .main-btn {
+            width: 100%;
+            height: 50px;
+            margin-top: 24px;
+            border-radius: 12px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #1d4ed8
+                );
+            color: white;
+            font-size: 15px;
+            font-weight: 800;
+            transition: 0.2s;
+        }
+
+        .main-btn:hover {
+            transform: translateY(-1px);
+            box-shadow:
+                0 8px 18px rgba(37, 99, 235, 0.25);
+        }
+
+        .naver-btn {
+            width: 100%;
+            height: 50px;
+            margin-top: 12px;
+            border-radius: 12px;
+            background: #03c75a;
+            color: white;
+            font-size: 15px;
+            font-weight: 800;
+            transition: 0.2s;
+        }
+
+        .naver-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .divider span {
+            padding: 0 12px;
+        }
+
         .message {
+            min-height: 20px;
             margin-top: 10px;
-            font-size: 14px;
+            font-size: 13px;
+            color: #475569;
+        }
+
+        .success {
+            color: #15803d;
+        }
+
+        .error {
+            color: #dc2626;
+        }
+
+        @media (max-width: 800px) {
+
+            .container {
+                grid-template-columns: 1fr;
+                max-width: 520px;
+            }
+
+            .intro {
+                padding: 35px;
+            }
+
+            .form-area {
+                padding: 35px;
+            }
         }
     </style>
 </head>
@@ -55,117 +311,395 @@
 
 <div class="container">
 
-    <h1>SafeHouse</h1>
+    <div class="intro">
 
-    <h2>회원가입</h2>
+        <div class="logo">
+            SafeHouse
+        </div>
 
-    <input id="signupUsername"
-           placeholder="아이디">
+        <h2>
+            나에게 맞는 집을<br>
+            더 안전하고 쉽게
+        </h2>
 
-    <input id="signupPassword"
-           type="password"
-           placeholder="비밀번호">
+        <p>
+            SafeHouse에서 회원가입하고<br>
+            나에게 맞는 주거 정보를 관리해보세요.
+        </p>
 
-    <input id="signupEmail"
-           type="email"
-           placeholder="이메일">
+        <div class="badge">
+            안전한 회원 인증 시스템
+        </div>
 
-    <button onclick="sendVerificationCode()">
-        인증번호 받기
-    </button>
+    </div>
 
-    <input id="verificationCode"
-           placeholder="6자리 인증번호">
+    <div class="form-area">
 
-    <button onclick="verifyEmail()">
-        인증하기
-    </button>
+        <div class="tabs">
 
-    <div id="emailMessage"
-         class="message"></div>
+            <button
+                class="tab active"
+                onclick="showSignup()">
+                회원가입
+            </button>
 
-    <button onclick="signup()">
-        회원가입
-    </button>
+            <button
+                class="tab"
+                onclick="showLogin()">
+                로그인
+            </button>
 
-    <div id="signupMessage"
-         class="message"></div>
+        </div>
 
+        <!-- 회원가입 -->
+        <div
+            id="signupSection"
+            class="form-section active">
 
-    <h2>로그인</h2>
+            <h1>회원가입</h1>
 
-    <input id="loginUsername"
-           placeholder="아이디">
+            <p class="subtitle">
+                SafeHouse를 시작해보세요.
+            </p>
 
-    <input id="loginPassword"
-           type="password"
-           placeholder="비밀번호">
+            <label class="label">
+                아이디
+            </label>
 
-    <button onclick="login()">
-        로그인
-    </button>
+            <input
+                id="signupUsername"
+                placeholder="4~20자">
 
-    <div id="loginMessage"
-         class="message"></div>
+            <label class="label">
+                비밀번호
+            </label>
+
+            <input
+                id="signupPassword"
+                type="password"
+                placeholder="6자 이상">
+
+            <label class="label">
+                이메일
+            </label>
+
+            <div class="email-row">
+
+                <input
+                    id="signupEmail"
+                    type="email"
+                    placeholder="example@email.com">
+
+                <button
+                    class="small-btn"
+                    onclick="sendVerificationCode()">
+
+                    인증번호 받기
+
+                </button>
+
+            </div>
+
+            <label class="label">
+                인증번호
+            </label>
+
+            <div class="code-row">
+
+                <input
+                    id="verificationCode"
+                    placeholder="6자리 인증번호">
+
+                <button
+                    class="small-btn"
+                    onclick="verifyEmail()">
+
+                    인증하기
+
+                </button>
+
+            </div>
+
+            <div
+                id="emailMessage"
+                class="message">
+            </div>
+
+            <button
+                class="main-btn"
+                onclick="signup()">
+
+                회원가입
+
+            </button>
+
+            <div
+                id="signupMessage"
+                class="message">
+            </div>
+
+        </div>
+
+        <!-- 로그인 -->
+        <div
+            id="loginSection"
+            class="form-section">
+
+            <h1>로그인</h1>
+
+            <p class="subtitle">
+                SafeHouse에 다시 오신 것을 환영합니다.
+            </p>
+
+            <label class="label">
+                아이디
+            </label>
+
+            <input
+                id="loginUsername"
+                placeholder="아이디">
+
+            <label class="label">
+                비밀번호
+            </label>
+
+            <input
+                id="loginPassword"
+                type="password"
+                placeholder="비밀번호">
+
+            <button
+                class="main-btn"
+                onclick="login()">
+
+                로그인
+
+            </button>
+
+            <div class="divider">
+                <span>또는</span>
+            </div>
+
+            <button
+                class="naver-btn"
+                onclick="naverLogin()">
+
+                네이버로 로그인
+
+            </button>
+
+            <div
+                id="loginMessage"
+                class="message">
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
-
 <script>
 
-// 인증번호 전송
-async function sendVerificationCode() {
+function showSignup() {
 
-    const email =
-        document.getElementById("signupEmail").value;
+    document
+        .getElementById("signupSection")
+        .classList.add("active");
 
-    const response = await fetch("/api/email/send", {
+    document
+        .getElementById("loginSection")
+        .classList.remove("active");
 
-        method: "POST",
+    document
+        .querySelectorAll(".tab")[0]
+        .classList.add("active");
 
-        headers: {
-            "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify({
-            email: email
-        })
-    });
-
-    const data = await response.json();
-
-    document.getElementById("emailMessage").innerText =
-        data.message;
+    document
+        .querySelectorAll(".tab")[1]
+        .classList.remove("active");
 }
 
 
-// 인증번호 확인
+function showLogin() {
+
+    document
+        .getElementById("loginSection")
+        .classList.add("active");
+
+    document
+        .getElementById("signupSection")
+        .classList.remove("active");
+
+    document
+        .querySelectorAll(".tab")[1]
+        .classList.add("active");
+
+    document
+        .querySelectorAll(".tab")[0]
+        .classList.remove("active");
+}
+
+
+function setMessage(
+    elementId,
+    message,
+    success
+) {
+
+    const element =
+        document.getElementById(elementId);
+
+    element.innerText = message;
+
+    element.classList.remove(
+        "success",
+        "error"
+    );
+
+    element.classList.add(
+        success ? "success" : "error"
+    );
+}
+
+
+// 네이버 로그인 성공 후 SafeHouse로 돌아왔는지 확인
+window.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const naverLoginSuccess =
+            localStorage.getItem(
+                "naverLoginSuccess"
+            );
+
+        if (naverLoginSuccess === "true") {
+
+            const username =
+                localStorage.getItem(
+                    "username"
+                );
+
+            showLogin();
+
+            setMessage(
+                "loginMessage",
+                "네이버 로그인 성공! "
+                    + username
+                    + "님",
+                true
+            );
+
+            // 새로고침할 때마다 성공 메시지가
+            // 다시 뜨지 않도록 삭제
+            localStorage.removeItem(
+                "naverLoginSuccess"
+            );
+        }
+    }
+);
+
+
+// 이메일 인증번호 전송
+async function sendVerificationCode() {
+
+    const email =
+        document
+            .getElementById("signupEmail")
+            .value;
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/email/send",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        email: email
+                    })
+                }
+            );
+
+        const data =
+            await response.json();
+
+        setMessage(
+            "emailMessage",
+            data.message,
+            response.ok
+        );
+
+    } catch (error) {
+
+        setMessage(
+            "emailMessage",
+            "인증번호 전송 중 오류가 발생했습니다.",
+            false
+        );
+    }
+}
+
+
+// 이메일 인증
 async function verifyEmail() {
 
     const email =
-        document.getElementById("signupEmail").value;
+        document
+            .getElementById("signupEmail")
+            .value;
 
     const code =
-        document.getElementById("verificationCode").value;
+        document
+            .getElementById("verificationCode")
+            .value;
 
-    const response = await fetch("/api/email/verify", {
+    try {
 
-        method: "POST",
+        const response =
+            await fetch(
+                "/api/email/verify",
+                {
+                    method: "POST",
 
-        headers: {
-            "Content-Type": "application/json"
-        },
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
 
-        body: JSON.stringify({
-            email: email,
-            code: code
-        })
-    });
+                    body: JSON.stringify({
+                        email: email,
+                        code: code
+                    })
+                }
+            );
 
-    const data = await response.json();
+        const data =
+            await response.json();
 
-    document.getElementById("emailMessage").innerText =
-        data.message;
+        const success =
+            data.message.includes("성공");
+
+        setMessage(
+            "emailMessage",
+            data.message,
+            success
+        );
+
+    } catch (error) {
+
+        setMessage(
+            "emailMessage",
+            "이메일 인증 중 오류가 발생했습니다.",
+            false
+        );
+    }
 }
 
 
@@ -173,84 +707,153 @@ async function verifyEmail() {
 async function signup() {
 
     const username =
-        document.getElementById("signupUsername").value;
+        document
+            .getElementById("signupUsername")
+            .value;
 
     const password =
-        document.getElementById("signupPassword").value;
+        document
+            .getElementById("signupPassword")
+            .value;
 
     const email =
-        document.getElementById("signupEmail").value;
+        document
+            .getElementById("signupEmail")
+            .value;
 
-    const response = await fetch("/api/users/signup", {
+    try {
 
-        method: "POST",
+        const response =
+            await fetch(
+                "/api/users/signup",
+                {
+                    method: "POST",
 
-        headers: {
-            "Content-Type": "application/json"
-        },
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
 
-        body: JSON.stringify({
-            username: username,
-            password: password,
-            email: email
-        })
-    });
+                    body: JSON.stringify({
+                        username: username,
+                        password: password,
+                        email: email
+                    })
+                }
+            );
 
-    const data = await response.json();
+        const data =
+            await response.json();
 
-    if (response.ok) {
+        if (response.ok) {
 
-        document.getElementById("signupMessage").innerText =
-            "회원가입 성공! 아이디: " + data.username;
+            setMessage(
+                "signupMessage",
+                "회원가입 성공! 이제 로그인해주세요.",
+                true
+            );
 
-    } else {
+        } else {
 
-        document.getElementById("signupMessage").innerText =
-            data.message;
+            setMessage(
+                "signupMessage",
+                data.message,
+                false
+            );
+        }
+
+    } catch (error) {
+
+        setMessage(
+            "signupMessage",
+            "회원가입 중 오류가 발생했습니다.",
+            false
+        );
     }
 }
 
 
-// 로그인
+// 일반 로그인
 async function login() {
 
     const username =
-        document.getElementById("loginUsername").value;
+        document
+            .getElementById("loginUsername")
+            .value;
 
     const password =
-        document.getElementById("loginPassword").value;
+        document
+            .getElementById("loginPassword")
+            .value;
 
-    const response = await fetch("/api/users/login", {
+    try {
 
-        method: "POST",
+        const response =
+            await fetch(
+                "/api/users/login",
+                {
+                    method: "POST",
 
-        headers: {
-            "Content-Type": "application/json"
-        },
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
 
-        body: JSON.stringify({
-            username: username,
-            password: password
-        })
-    });
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                }
+            );
 
-    const data = await response.json();
+        const data =
+            await response.json();
 
-    if (response.ok) {
+        if (response.ok) {
 
-        localStorage.setItem(
-            "token",
-            data.token
+            localStorage.setItem(
+                "token",
+                data.token
+            );
+
+            localStorage.setItem(
+                "username",
+                data.username
+            );
+
+            setMessage(
+                "loginMessage",
+                "로그인 성공! "
+                    + data.username
+                    + "님",
+                true
+            );
+
+        } else {
+
+            setMessage(
+                "loginMessage",
+                data.message,
+                false
+            );
+        }
+
+    } catch (error) {
+
+        setMessage(
+            "loginMessage",
+            "로그인 중 오류가 발생했습니다.",
+            false
         );
-
-        document.getElementById("loginMessage").innerText =
-            "로그인 성공! " + data.username + "님";
-
-    } else {
-
-        document.getElementById("loginMessage").innerText =
-            data.message;
     }
+}
+
+
+// 네이버 로그인
+function naverLogin() {
+
+    window.location.href =
+        "/api/naver/login";
 }
 
 </script>

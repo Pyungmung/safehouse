@@ -1,6 +1,8 @@
 package com.example.demo.email;
 
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,7 +20,8 @@ public class EmailService {
     @Value("${spring.mail.username}")
     private String senderUsername;
 
-    private final SecureRandom random = new SecureRandom();
+    private final SecureRandom random =
+            new SecureRandom();
 
     // 이메일별 인증번호 저장
     private final Map<String, String> verificationCodes =
@@ -123,7 +126,6 @@ public class EmailService {
 
         // 인증번호 불일치
         if (!savedCode.equals(code)) {
-
             return false;
         }
 
@@ -159,5 +161,44 @@ public class EmailService {
         email = email.trim().toLowerCase();
 
         verifiedEmails.remove(email);
+    }
+
+    // 네이버 로그인 알림 이메일 전송
+    public void sendNaverLoginNotification(String email) {
+
+        if (email == null || email.isBlank()) {
+            return;
+        }
+
+        email = email.trim().toLowerCase();
+
+        String loginTime =
+                LocalDateTime.now().format(
+                        DateTimeFormatter.ofPattern(
+                                "yyyy-MM-dd HH:mm:ss"
+                        )
+                );
+
+        SimpleMailMessage message =
+                new SimpleMailMessage();
+
+        message.setFrom(
+                senderUsername + "@naver.com"
+        );
+
+        message.setTo(email);
+
+        message.setSubject(
+                "[SafeHouse] 네이버 로그인 알림"
+        );
+
+        message.setText(
+                "SafeHouse에 네이버 계정으로 로그인되었습니다.\n\n" +
+                "로그인 시간: " + loginTime + "\n\n" +
+                "본인이 로그인한 것이 아니라면 " +
+                "네이버 계정의 보안 상태를 확인해주세요."
+        );
+
+        mailSender.send(message);
     }
 }

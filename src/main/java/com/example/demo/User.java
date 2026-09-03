@@ -16,6 +16,9 @@ public class User {
     private String password;
     private String email;
 
+    // 네이버 로그인 사용자 고유 ID
+    private String naverId;
+
     public Long getId() {
         return id;
     }
@@ -42,5 +45,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getNaverId() {
+        return naverId;
+    }
+
+    public void setNaverId(String naverId) {
+        this.naverId = naverId;
     }
 }
