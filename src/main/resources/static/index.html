@@ -4,11 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>SafeHouse</title>
 
     <style>
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -18,21 +16,17 @@
         body {
             font-family: Arial, sans-serif;
             min-height: 100vh;
-
             background:
                 linear-gradient(
                     rgba(15, 23, 42, 0.68),
                     rgba(15, 23, 42, 0.78)
                 ),
                 url("https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1600&q=80");
-
             background-size: cover;
             background-position: center;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             padding: 30px;
         }
 
@@ -40,31 +34,23 @@
             width: 100%;
             max-width: 980px;
             min-height: 620px;
-
             display: grid;
             grid-template-columns: 1fr 1fr;
-
             background: rgba(255, 255, 255, 0.97);
-
             border-radius: 24px;
             overflow: hidden;
-
-            box-shadow:
-                0 25px 70px rgba(0, 0, 0, 0.30);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.30);
         }
 
         .intro {
             padding: 55px;
-
             background:
                 linear-gradient(
                     145deg,
                     #0f172a,
                     #1e3a8a
                 );
-
             color: white;
-
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -90,18 +76,11 @@
 
         .badge {
             margin-top: 35px;
-
             display: inline-block;
             width: fit-content;
-
             padding: 10px 16px;
-
-            background:
-                rgba(255, 255, 255, 0.12);
-
-            border:
-                1px solid rgba(255, 255, 255, 0.2);
-
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 999px;
             font-size: 13px;
         }
@@ -113,38 +92,28 @@
 
         .tabs {
             display: flex;
-
             background: #f1f5f9;
-
             border-radius: 12px;
             padding: 5px;
-
             margin-bottom: 30px;
         }
 
         .tab {
             flex: 1;
-
             border: none;
             background: transparent;
-
             padding: 12px;
             border-radius: 9px;
-
             cursor: pointer;
-
             font-size: 15px;
             font-weight: 700;
-
             color: #64748b;
         }
 
         .tab.active {
             background: white;
             color: #1d4ed8;
-
-            box-shadow:
-                0 3px 10px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
         }
 
         .form-section {
@@ -169,12 +138,9 @@
 
         .label {
             display: block;
-
             margin-top: 14px;
             margin-bottom: 7px;
-
             color: #334155;
-
             font-size: 14px;
             font-weight: 700;
         }
@@ -182,34 +148,25 @@
         input {
             width: 100%;
             height: 48px;
-
             border: 1px solid #cbd5e1;
             border-radius: 11px;
-
             padding: 0 14px;
-
             font-size: 15px;
-
             outline: none;
-
             transition: 0.2s;
         }
 
         input:focus {
             border-color: #2563eb;
-
-            box-shadow:
-                0 0 0 3px rgba(37, 99, 235, 0.12);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
         }
 
-        /* 아이디 + 중복확인 */
         .username-row {
             display: grid;
             grid-template-columns: 1fr 120px;
             gap: 8px;
         }
 
-        /* 비밀번호 + 보기 */
         .password-row {
             display: grid;
             grid-template-columns: 1fr 80px;
@@ -235,12 +192,9 @@
 
         .small-btn {
             height: 48px;
-
             border-radius: 11px;
-
             background: #e0e7ff;
             color: #1d4ed8;
-
             font-weight: 700;
         }
 
@@ -251,29 +205,22 @@
         .main-btn {
             width: 100%;
             height: 50px;
-
             margin-top: 24px;
-
             border-radius: 12px;
-
             background:
                 linear-gradient(
                     135deg,
                     #2563eb,
                     #1d4ed8
                 );
-
             color: white;
-
             font-size: 15px;
             font-weight: 800;
-
             transition: 0.2s;
         }
 
         .main-btn:hover {
             transform: translateY(-1px);
-
             box-shadow:
                 0 8px 18px rgba(37, 99, 235, 0.25);
         }
@@ -281,17 +228,12 @@
         .naver-btn {
             width: 100%;
             height: 50px;
-
             margin-top: 12px;
-
             border-radius: 12px;
-
             background: #03c75a;
             color: white;
-
             font-size: 15px;
             font-weight: 800;
-
             transition: 0.2s;
         }
 
@@ -303,23 +245,17 @@
         .divider {
             display: flex;
             align-items: center;
-
             margin-top: 20px;
             margin-bottom: 8px;
-
             color: #94a3b8;
-
             font-size: 12px;
         }
 
         .divider::before,
         .divider::after {
             content: "";
-
             flex: 1;
-
             height: 1px;
-
             background: #e2e8f0;
         }
 
@@ -329,11 +265,8 @@
 
         .message {
             min-height: 20px;
-
             margin-top: 10px;
-
             font-size: 13px;
-
             color: #475569;
         }
 
@@ -346,7 +279,6 @@
         }
 
         @media (max-width: 800px) {
-
             .container {
                 grid-template-columns: 1fr;
                 max-width: 520px;
@@ -359,11 +291,8 @@
             .form-area {
                 padding: 35px;
             }
-
         }
-
     </style>
-
 </head>
 
 <body>
@@ -422,7 +351,9 @@
             id="signupSection"
             class="form-section active">
 
-            <h1>회원가입</h1>
+            <h1>
+                회원가입
+            </h1>
 
             <p class="subtitle">
                 SafeHouse를 시작해보세요.
@@ -470,17 +401,49 @@
                 <input
                     id="signupPassword"
                     type="password"
-                    placeholder="6자 이상">
+                    placeholder="6자 이상"
+                    oninput="checkPasswordMatch()">
 
                 <button
                     type="button"
                     class="small-btn"
-                    onclick="toggleSignupPassword()">
+                    onclick="toggleSignupPassword(event)">
 
                     보기
 
                 </button>
 
+            </div>
+
+
+            <!-- 비밀번호 확인 -->
+
+            <label class="label">
+                비밀번호 확인
+            </label>
+
+            <div class="password-row">
+
+                <input
+                    id="signupPasswordConfirm"
+                    type="password"
+                    placeholder="비밀번호를 다시 입력"
+                    oninput="checkPasswordMatch()">
+
+                <button
+                    type="button"
+                    class="small-btn"
+                    onclick="toggleSignupPasswordConfirm(event)">
+
+                    보기
+
+                </button>
+
+            </div>
+
+            <div
+                id="passwordMessage"
+                class="message">
             </div>
 
 
@@ -509,6 +472,8 @@
             </div>
 
 
+            <!-- 인증번호 -->
+
             <label class="label">
                 인증번호
             </label>
@@ -530,7 +495,6 @@
 
             </div>
 
-
             <div
                 id="emailMessage"
                 class="message">
@@ -544,7 +508,6 @@
                 회원가입
 
             </button>
-
 
             <div
                 id="signupMessage"
@@ -560,7 +523,9 @@
             id="loginSection"
             class="form-section">
 
-            <h1>로그인</h1>
+            <h1>
+                로그인
+            </h1>
 
             <p class="subtitle">
                 SafeHouse에 다시 오신 것을 환영합니다.
@@ -590,7 +555,7 @@
                 <button
                     type="button"
                     class="small-btn"
-                    onclick="toggleLoginPassword()">
+                    onclick="toggleLoginPassword(event)">
 
                     보기
 
@@ -640,6 +605,7 @@ let usernameChecked = false;
 
 
 // 회원가입 화면
+
 function showSignup() {
 
     document
@@ -661,6 +627,7 @@ function showSignup() {
 
 
 // 로그인 화면
+
 function showLogin() {
 
     document
@@ -682,6 +649,7 @@ function showLogin() {
 
 
 // 메시지 표시
+
 function setMessage(
     elementId,
     message,
@@ -691,7 +659,7 @@ function setMessage(
     const element =
         document.getElementById(elementId);
 
-    element.innerText = message;
+    element.innerText = message || "";
 
     element.classList.remove(
         "success",
@@ -705,6 +673,7 @@ function setMessage(
 
 
 // 아이디가 변경되면 중복확인 취소
+
 function resetUsernameCheck() {
 
     usernameChecked = false;
@@ -719,6 +688,7 @@ function resetUsernameCheck() {
 
 
 // 아이디 중복 확인
+
 async function checkUsername() {
 
     const username =
@@ -766,7 +736,12 @@ async function checkUsername() {
         const data =
             await response.json();
 
-        if (response.ok && data.available) {
+        if (
+            response.ok
+            && data.success
+            && data.data
+            && data.data.available
+        ) {
 
             usernameChecked = true;
 
@@ -787,7 +762,6 @@ async function checkUsername() {
                     "이미 사용 중인 아이디입니다.",
                 false
             );
-
         }
 
     } catch (error) {
@@ -799,14 +773,13 @@ async function checkUsername() {
             "아이디 중복확인 중 오류가 발생했습니다.",
             false
         );
-
     }
-
 }
 
 
 // 회원가입 비밀번호 보기 / 숨기기
-function toggleSignupPassword() {
+
+function toggleSignupPassword(event) {
 
     const passwordInput =
         document.getElementById(
@@ -819,20 +792,102 @@ function toggleSignupPassword() {
     if (passwordInput.type === "password") {
 
         passwordInput.type = "text";
+
         button.innerText = "숨기기";
 
     } else {
 
         passwordInput.type = "password";
-        button.innerText = "보기";
 
+        button.innerText = "보기";
+    }
+}
+
+
+// 비밀번호 확인 보기 / 숨기기
+
+function toggleSignupPasswordConfirm(event) {
+
+    const passwordInput =
+        document.getElementById(
+            "signupPasswordConfirm"
+        );
+
+    const button =
+        event.currentTarget;
+
+    if (passwordInput.type === "password") {
+
+        passwordInput.type = "text";
+
+        button.innerText = "숨기기";
+
+    } else {
+
+        passwordInput.type = "password";
+
+        button.innerText = "보기";
+    }
+}
+
+
+// 비밀번호 일치 확인
+
+function checkPasswordMatch() {
+
+    const password =
+        document.getElementById(
+            "signupPassword"
+        ).value;
+
+    const passwordConfirm =
+        document.getElementById(
+            "signupPasswordConfirm"
+        ).value;
+
+    const message =
+        document.getElementById(
+            "passwordMessage"
+        );
+
+    if (passwordConfirm === "") {
+
+        message.innerText = "";
+
+        message.classList.remove(
+            "success",
+            "error"
+        );
+
+        return false;
     }
 
+    if (password === passwordConfirm) {
+
+        setMessage(
+            "passwordMessage",
+            "비밀번호가 일치합니다.",
+            true
+        );
+
+        return true;
+
+    } else {
+
+        setMessage(
+            "passwordMessage",
+            "비밀번호가 일치하지 않습니다.",
+            false
+        );
+
+        return false;
+    }
 }
 
 
 // 로그인 비밀번호 보기 / 숨기기
-function toggleLoginPassword() {
+
+function toggleLoginPassword(event) {
 
     const passwordInput =
         document.getElementById(
@@ -845,21 +900,23 @@ function toggleLoginPassword() {
     if (passwordInput.type === "password") {
 
         passwordInput.type = "text";
+
         button.innerText = "숨기기";
 
     } else {
 
         passwordInput.type = "password";
+
         button.innerText = "보기";
-
     }
-
 }
 
 
 // 네이버 로그인 성공 후 SafeHouse로 돌아왔는지 확인
+
 window.addEventListener(
     "DOMContentLoaded",
+
     function () {
 
         const naverLoginSuccess =
@@ -887,14 +944,13 @@ window.addEventListener(
             localStorage.removeItem(
                 "naverLoginSuccess"
             );
-
         }
-
     }
 );
 
 
 // 이메일 인증번호 전송
+
 async function sendVerificationCode() {
 
     const email =
@@ -929,7 +985,7 @@ async function sendVerificationCode() {
         setMessage(
             "emailMessage",
             data.message,
-            response.ok
+            response.ok && data.success
         );
 
     } catch (error) {
@@ -939,13 +995,12 @@ async function sendVerificationCode() {
             "인증번호 전송 중 오류가 발생했습니다.",
             false
         );
-
     }
-
 }
 
 
 // 이메일 인증
+
 async function verifyEmail() {
 
     const email =
@@ -986,7 +1041,8 @@ async function verifyEmail() {
             await response.json();
 
         const success =
-            data.message.includes("성공");
+            response.ok &&
+            data.success;
 
         setMessage(
             "emailMessage",
@@ -1001,16 +1057,14 @@ async function verifyEmail() {
             "이메일 인증 중 오류가 발생했습니다.",
             false
         );
-
     }
-
 }
 
 
 // 회원가입
+
 async function signup() {
 
-    // 아이디 중복확인을 하지 않았다면 회원가입 차단
     if (!usernameChecked) {
 
         setMessage(
@@ -1021,7 +1075,6 @@ async function signup() {
 
         return;
     }
-
 
     const username =
         document
@@ -1038,12 +1091,55 @@ async function signup() {
             )
             .value;
 
+    const passwordConfirm =
+        document
+            .getElementById(
+                "signupPasswordConfirm"
+            )
+            .value;
+
     const email =
         document
             .getElementById(
                 "signupEmail"
             )
             .value;
+
+
+    if (password.length < 6) {
+
+        setMessage(
+            "signupMessage",
+            "비밀번호는 6자 이상 입력해주세요.",
+            false
+        );
+
+        return;
+    }
+
+
+    if (passwordConfirm === "") {
+
+        setMessage(
+            "signupMessage",
+            "비밀번호 확인을 입력해주세요.",
+            false
+        );
+
+        return;
+    }
+
+
+    if (password !== passwordConfirm) {
+
+        setMessage(
+            "signupMessage",
+            "비밀번호가 일치하지 않습니다.",
+            false
+        );
+
+        return;
+    }
 
 
     try {
@@ -1070,29 +1166,28 @@ async function signup() {
         const data =
             await response.json();
 
-        if (response.ok) {
+        if (
+            response.ok
+            && data.success
+        ) {
 
             setMessage(
                 "signupMessage",
-                "회원가입 성공! 이제 로그인해주세요.",
+                data.message ||
+                    "회원가입 성공! 이제 로그인해주세요.",
                 true
             );
 
-            /*
-             * 회원가입이 성공했으므로
-             * 같은 아이디로 다시 가입하는 것을 방지하기 위해
-             * 중복확인 상태를 초기화
-             */
             usernameChecked = false;
 
         } else {
 
             setMessage(
                 "signupMessage",
-                data.message,
+                data.message ||
+                    "회원가입에 실패했습니다.",
                 false
             );
-
         }
 
     } catch (error) {
@@ -1102,13 +1197,12 @@ async function signup() {
             "회원가입 중 오류가 발생했습니다.",
             false
         );
-
     }
-
 }
 
 
 // 일반 로그인
+
 async function login() {
 
     const username =
@@ -1148,22 +1242,34 @@ async function login() {
         const data =
             await response.json();
 
-        if (response.ok) {
+        if (
+            response.ok
+            && data.success
+            && data.data
+        ) {
 
+            // Access Token 저장
             localStorage.setItem(
                 "token",
-                data.token
+                data.data.token
             );
 
+            // Refresh Token 저장
+            localStorage.setItem(
+                "refreshToken",
+                data.data.refreshToken
+            );
+
+            // 사용자 아이디 저장
             localStorage.setItem(
                 "username",
-                data.username
+                data.data.username
             );
 
             setMessage(
                 "loginMessage",
                 "로그인 성공! "
-                    + data.username
+                    + data.data.username
                     + "님",
                 true
             );
@@ -1172,10 +1278,10 @@ async function login() {
 
             setMessage(
                 "loginMessage",
-                data.message,
+                data.message ||
+                    "로그인에 실패했습니다.",
                 false
             );
-
         }
 
     } catch (error) {
@@ -1185,18 +1291,84 @@ async function login() {
             "로그인 중 오류가 발생했습니다.",
             false
         );
+    }
+}
 
+
+// Access Token 재발급
+
+async function refreshAccessToken() {
+
+    const refreshToken =
+        localStorage.getItem(
+            "refreshToken"
+        );
+
+    if (!refreshToken) {
+
+        return null;
     }
 
+    try {
+
+        const response =
+            await fetch(
+                "/api/users/refresh",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        refreshToken: refreshToken
+                    })
+                }
+            );
+
+        const data =
+            await response.json();
+
+        if (
+            response.ok
+            && data.success
+            && data.data
+            && data.data.token
+        ) {
+
+            localStorage.setItem(
+                "token",
+                data.data.token
+            );
+
+            return data.data.token;
+        }
+
+        localStorage.removeItem(
+            "token"
+        );
+
+        localStorage.removeItem(
+            "refreshToken"
+        );
+
+        return null;
+
+    } catch (error) {
+
+        return null;
+    }
 }
 
 
 // 네이버 로그인
+
 function naverLogin() {
 
     window.location.href =
         "/api/naver/login";
-
 }
 
 </script>
